@@ -1,0 +1,90 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>网盘个人空间</title>
+    <style>
+        #container{
+            border:2px solid #469F0B;
+            background-color:#8CFBFB;
+        }
+        #header{
+            width:100%;
+            height:100px;
+        }
+        #maintop{
+            height:300px;
+            background-color:#C0C6C7;
+            text-align:center;
+            border:10px solid #06A5A5;
+            text-decoration:none;
+        }
+        #submit input{
+            width:150px;
+            height:30px;
+            background-color:gray;
+            margin:0px auto;
+            font-size:16px;
+            color:whitesmoke;
+        }
+        #mainlist{
+            background-color:#C0C6C7;
+            border:10px solid #06A5A5;
+        }
+        #mainlist h4{
+            text-align:center;
+        }
+        #delbtn a{
+            background-color:#DE1039;
+            width:100px;
+            height:30px;
+            font-size:20px;
+            color:white;
+            border-radius:1px;
+            text-decoration:none;
+        }
+        #logout{
+            text-decoration:none;
+            width:100px;
+            height:25px;
+            float:right;
+            margin-top:0px;
+        }
+    </style>
+</head>
+<body>
+<div id="container"><!--containerstart-->
+    <div id="header"><!--headerstart-->
+        <h5> <p th:text="'您好！ '+${name}">hello</p><a href="/File/search" style="text-decoration:none">搜索其它用户上传的文件>></a></h5>
+        <div id="logout"><a href="/File/logout"  style="text-decoration:none">退 出</a></div>
+    </div><!--headerend-->
+    <div id="main"><!--mainstart-->
+        <div id="maintop"><!--maintopstart-->
+            <form method="post" enctype="multipart/form-data" action="/File/upload" >
+                <h4>个人文件上传模块</h4>
+                <h4>上传文件简介:<textarea type="text" name="introduce" ></textarea></h4>
+                <h4>选择上传文件：<input type="file" name="filename" /></h4>
+                <h4>该文件是否可被别人查见
+                <select name="mark">
+                    <option value ="0">是</option>
+                    <option value ="1">否</option>
+                </select>
+                </h4>
+                <p id="submit"><input type="submit" value="提   交" /></p>
+            </form>
+        </div><!--maintopend-->
+        <div id="mainlist"><!--mainlist-->
+                <h4>您上传过的文件模块</h4>
+                <table>
+                <tr th:each="every:${list}" >
+                    <td><P th:text="'文件简介：'+${every.introduce}"></P></td>
+                    <td><P th:text="'上传时间：'+${every.time}"></P></td>
+                    <td><a th:href="${every.filepath}"><p th:text="${every.filepath}+'（点击可下载）'"></p></a></td>
+                    <td><p id="delbtn"><a th:href="'/File/delete?id='+${every.id}">删除</a></p></td>
+                </tr>
+                </table>
+        </div><!--mainlistend-->
+    </div><!--mainend-->
+</div><!--containerend-->
+</body>
+</html>

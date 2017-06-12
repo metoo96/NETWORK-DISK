@@ -1,0 +1,53 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>搜索页面</title>
+    <style>
+        #container{
+            border:2px solid #469F0B;
+            background-color:#8CFBFB;
+        }
+        #submit input{
+            width:150px;
+            height:30px;
+            background-color:gray;
+            margin:0px auto;
+            font-size:16px;
+            color:whitesmoke;
+        }
+        #mainlist{
+            background-color:#C0C6C7;
+            border:10px solid #06A5A5;
+        }
+        #mainlist h4{
+            text-align:center;
+        }
+        #mainlist input{
+            text-align:center;
+        }
+        #mainlist form{
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+<div id="container"><!--containerstart-->
+        <div id="mainlist"><!--mainlist-->
+            <h5 ><a href="/File/index" style="text-decoration:none">返回个人文件上传页面>></a></h5>
+            <h4>文件搜索</h4>
+            <form method="post" action="/File/search">
+                <input type="text" name="name" placeholder="用户名"/>
+                <input type="submit" value="查    询"/>
+            </form>
+            <table>
+                <tr th:each="every:${list}" >
+                    <td><P th:text="'文件简介：'+${every.introduce}"></P></td>
+                    <td><P th:text="'上传时间：'+${every.time}"></P></td>
+                    <td><a th:href="${every.filepath}"><p th:text="${every.filepath}+'（点击可下载）'"></p></a></td>
+                </tr>
+            </table>
+        </div><!--mainlistend-->
+</div><!--containerend-->
+</body>
+</html>
